@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+psycopg[binary]
+pydantic[email]
+pwdlib[argon2]
+PyJWT
+python-dotenv
+python-multipart
+pytest>=8.0.0

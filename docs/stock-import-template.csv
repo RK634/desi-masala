@@ -1,0 +1,3 @@
+product_id,product_name,warehouse_id,quantity,unit_cost,new_price,expiry_date,supplier_reference,brand,category
+1,,1,20,1.80,3.20,2026-12-15,SUPPLIER-001,,Spices
+,Toor Dal 1kg,1,30,1.50,2.99,2027-02-28,SUPPLIER-002,Desi Select,Lentils & Beans

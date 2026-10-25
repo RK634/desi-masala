@@ -1,0 +1,718 @@
+
+.customer-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.customer-sidebar {
+  position: sticky;
+  top: 20px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.customer-sidebar h2 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+.customer-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.customer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #475569;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.customer-nav-item:hover {
+  background: #f1f5f9;
+}
+
+.customer-nav-item.active {
+  background: #e8f2e9;
+  color: #245d35;
+  font-weight: 600;
+}
+
+.customer-section-content {
+  min-width: 0;
+}
+
+.customer-section-content .customer-panel {
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .customer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .customer-sidebar {
+    position: static;
+  }
+
+  .customer-sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .customer-nav-item {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================================
+   DESI MASALA — ACCOUNT DASHBOARD FIX
+   Append this to the bottom of CustomerDashboard.css
+   ========================================================= */
+
+.customer-account {
+  --account-green: #245b3e;
+  --account-green-dark: #19452e;
+  --account-green-light: #e8f2e9;
+  --account-text: #23342a;
+  --account-muted: #68766c;
+  --account-border: #e0e6df;
+  --account-surface: #ffffff;
+
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 28px clamp(16px, 3vw, 40px) 56px;
+  color: var(--account-text);
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: 1.55;
+}
+
+.customer-account *,
+.customer-account *::before,
+.customer-account *::after {
+  box-sizing: border-box;
+}
+
+.customer-account-header {
+  margin-bottom: 28px;
+}
+
+.customer-account-header > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 9px 13px;
+  color: var(--account-green);
+  background: transparent;
+  border: 1px solid var(--account-border);
+  border-radius: 9px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.customer-account-header > button:hover {
+  background: var(--account-green-light);
+}
+
+.customer-account-header h1 {
+  margin: 6px 0 8px;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -0.7px;
+}
+
+.customer-account-header > div > span {
+  color: var(--account-green);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1.3px;
+}
+
+.customer-account-header p {
+  margin: 0;
+  color: var(--account-muted);
+  font-size: 15px;
+}
+
+/* Main sidebar/content layout */
+.customer-layout,
+.customer-account-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
+  width: 100%;
+}
+
+.customer-sidebar {
+  min-width: 0;
+  padding: 16px;
+  background: var(--account-surface);
+  border: 1px solid var(--account-border);
+  border-radius: 16px;
+}
+
+.customer-sidebar h2,
+.customer-sidebar h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.customer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  min-height: 44px;
+  margin: 3px 0;
+  padding: 10px 12px;
+  color: #53655a;
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.customer-nav-item:hover {
+  background: #f3f7f2;
+  color: var(--account-green);
+}
+
+.customer-nav-item.active,
+.customer-nav-item[aria-current="page"] {
+  background: var(--account-green-light);
+  color: var(--account-green-dark);
+  font-weight: 700;
+}
+
+.customer-section-content {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Reusable panels and cards */
+.customer-panel,
+.customer-section-content > section,
+.customer-section-content > article {
+  min-width: 0;
+  margin: 0 0 20px;
+  padding: clamp(18px, 2.5vw, 28px);
+  background: var(--account-surface);
+  border: 1px solid var(--account-border);
+  border-radius: 16px;
+  box-shadow: 0 3px 12px rgb(30 55 35 / 4%);
+}
+
+.customer-panel h2,
+.customer-section-content h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: clamp(19px, 2vw, 24px);
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.customer-panel h2 svg,
+.customer-section-content h2 svg {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  color: var(--account-green);
+}
+
+.customer-panel h3,
+.customer-section-content h3 {
+  margin: 20px 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.customer-panel p,
+.customer-section-content p {
+  line-height: 1.65;
+}
+
+.customer-muted {
+  color: var(--account-muted);
+  font-size: 14px;
+}
+
+.customer-security-note {
+  margin-top: 16px;
+  padding: 13px 15px;
+  color: #526756;
+  background: #f2f7f0;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+/* Address cards */
+.saved-address {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 12px 0;
+  padding: 16px;
+  background: #fbfcfa;
+  border: 1px solid var(--account-border);
+  border-radius: 12px;
+}
+
+.saved-address strong {
+  margin-bottom: 3px;
+  color: var(--account-green-dark);
+}
+
+/* All account forms */
+.customer-account form {
+  min-width: 0;
+}
+
+.customer-account .address-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--account-border);
+}
+
+.customer-account .address-form h3 {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.customer-account label:not(.notification-option) {
+  min-width: 0;
+}
+
+.customer-account .address-form label,
+.customer-account .customer-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  color: #34493a;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.customer-account input:not([type="checkbox"]),
+.customer-account select,
+.customer-account textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 11px 12px;
+  color: var(--account-text);
+  background: #fff;
+  border: 1px solid #d5ded4;
+  border-radius: 8px;
+  outline: none;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.customer-account textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.customer-account input:not([type="checkbox"]):focus,
+.customer-account select:focus,
+.customer-account textarea:focus {
+  border-color: var(--account-green);
+  box-shadow: 0 0 0 3px rgb(36 91 62 / 12%);
+}
+
+.customer-account input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--account-green);
+  cursor: pointer;
+}
+
+.customer-account .address-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.customer-account .address-form > button,
+.customer-account form button[type="submit"],
+.customer-account .customer-section-content button[type="submit"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 18px;
+  color: #fff;
+  background: var(--account-green);
+  border: 1px solid var(--account-green);
+  border-radius: 9px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.customer-account .address-form > button:hover,
+.customer-account form button[type="submit"]:hover {
+  background: var(--account-green-dark);
+}
+
+.customer-account button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Default checkbox/submit row in address form */
+.customer-account .address-form > label:has(input[type="checkbox"]) {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+}
+
+.customer-account .address-form > button {
+  justify-self: start;
+}
+
+/* Notification preference rows */
+.customer-account .notification-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  margin: 0;
+  padding: 15px 2px;
+  color: var(--account-text);
+  border-bottom: 1px solid #edf0eb;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.customer-account .notification-option:last-child {
+  border-bottom: 0;
+}
+
+.customer-account .notification-option span {
+  flex: 1;
+}
+
+/* Feedback and support component fallback styling.
+   These selectors style common native form elements even if
+   EngagementPanels/SupportPanel have their own class names. */
+.customer-account .customer-panel form,
+.customer-account .customer-section-content form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: end;
+  gap: 16px;
+}
+
+.customer-account .customer-panel form label,
+.customer-account .customer-section-content form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.customer-account .customer-panel form textarea,
+.customer-account .customer-section-content form textarea {
+  grid-column: 1 / -1;
+}
+
+.customer-account .customer-panel form button,
+.customer-account .customer-section-content form button {
+  justify-self: start;
+}
+
+/* Tracking */
+.customer-account .tracking-timeline {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.customer-account .tracking-timeline li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf0eb;
+}
+
+.customer-account .tracking-timeline li:last-child {
+  border-bottom: 0;
+}
+
+.customer-account .tracking-timeline small {
+  display: block;
+  margin-top: 4px;
+  color: var(--account-muted);
+}
+
+.customer-account .carrier-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--account-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.customer-account .carrier-link:hover {
+  text-decoration: underline;
+}
+
+/* Success and error messages */
+.customer-account .customer-message {
+  margin: 0 0 18px;
+  padding: 13px 16px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.customer-account .customer-message.error {
+  color: #922f2f;
+  background: #fff2f0;
+  border-color: #f1cfca;
+}
+
+.customer-account .customer-message.success {
+  color: #245b3e;
+  background: #edf7ed;
+  border-color: #cfe5cf;
+}
+
+/* Tables and long content */
+.customer-account table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customer-account th,
+.customer-account td {
+  padding: 12px;
+  border-bottom: 1px solid var(--account-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.customer-account pre,
+.customer-account code {
+  overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .customer-layout,
+  .customer-account-grid {
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .customer-sidebar {
+    padding: 12px;
+  }
+
+  .customer-account .address-form,
+  .customer-account .customer-panel form,
+  .customer-account .customer-section-content form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .customer-account .address-form h3,
+  .customer-account .customer-panel form textarea,
+  .customer-account .customer-section-content form textarea {
+    grid-column: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .customer-account {
+    padding: 18px 14px 36px;
+  }
+
+  .customer-account-header {
+    margin-bottom: 20px;
+  }
+
+  .customer-layout,
+  .customer-account-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .customer-sidebar {
+    position: static;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .customer-sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .customer-nav-item {
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .customer-panel,
+  .customer-section-content > section,
+  .customer-section-content > article {
+    padding: 17px;
+    border-radius: 12px;
+  }
+
+  .customer-account .address-form,
+  .customer-account .address-two,
+  .customer-account .customer-panel form,
+  .customer-account .customer-section-content form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .customer-account .address-form h3,
+  .customer-account .customer-panel form textarea,
+  .customer-account .customer-section-content form textarea {
+    grid-column: auto;
+  }
+
+  .customer-account .address-form > button,
+  .customer-account form button[type="submit"] {
+    width: 100%;
+  }
+
+  .customer-account .notification-option {
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .customer-account table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+
+
+/* Desi Masala support panel redesign — append to CustomerDashboard.css */
+.customer-account .support-panel { overflow:hidden; }
+.customer-account .support-heading { display:flex; align-items:center; gap:15px; margin-bottom:24px; }
+.customer-account .support-heading-icon { display:grid; place-items:center; width:52px; height:52px; flex:0 0 auto; color:#245b3e; background:#e8f2e9; border-radius:15px; }
+.customer-account .support-heading > div:nth-child(2) { min-width:0; flex:1; }
+.customer-account .support-heading h2 { margin:0 0 4px; }
+.customer-account .support-heading .customer-muted { margin:0; }
+.customer-account .support-eyebrow { margin:0 0 3px; color:#62806a; font-size:10px; font-weight:800; letter-spacing:1.4px; }
+.customer-account .support-refresh { display:inline-flex; align-items:center; gap:7px; min-height:38px; padding:8px 12px; color:#245b3e; background:#fff; border:1px solid #d5e0d5; border-radius:9px; font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+.customer-account .support-content-grid { display:grid; grid-template-columns:minmax(260px,.78fr) minmax(0,1.22fr); align-items:start; gap:22px; }
+.customer-account .support-compose-card, .customer-account .support-ticket-list { min-width:0; padding:19px; border:1px solid #e0e8df; border-radius:14px; background:#fff; }
+.customer-account .support-compose-card { background:linear-gradient(180deg,#fbfdf9 0%,#fff 100%); }
+.customer-account .support-card-title { display:flex; align-items:center; gap:9px; color:#245b3e; }
+.customer-account .support-card-title h3, .customer-account .support-ticket-list-heading h3 { margin:0; color:#23342a; }
+.customer-account .support-compose-card > p { margin:8px 0 0; }
+.customer-account .support-form { display:grid; grid-template-columns:minmax(0,1fr); gap:13px; margin-top:18px; padding-top:0; border-top:0; }
+.customer-account .support-form label { gap:7px; }
+.customer-account .support-form .support-message-field { grid-column:auto; }
+.customer-account .support-form textarea { min-height:130px; }
+.customer-account .support-form button[type="submit"] { display:inline-flex; align-items:center; justify-content:center; gap:9px; width:100%; justify-self:stretch; }
+.customer-account .support-optional { margin-left:5px; color:#7b887e; font-size:11px; font-weight:500; }
+.customer-account .support-ticket-list-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:15px; }
+.customer-account .support-ticket-list-heading p { margin:4px 0 0; font-size:13px; }
+.customer-account .support-ticket-count { display:grid; place-items:center; min-width:30px; height:30px; padding:0 8px; color:#245b3e; background:#e8f2e9; border-radius:999px; font-size:12px; font-weight:800; }
+.customer-account .support-ticket-card { display:block; min-width:0; margin:12px 0 0; padding:16px; background:#fff; border:1px solid #e2e9e1; border-radius:12px; }
+.customer-account .support-ticket-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.customer-account .support-ticket-number { color:#718075; font-size:10px; font-weight:800; letter-spacing:1px; }
+.customer-account .support-ticket-top h4 { margin:4px 0 0; color:#213d2b; font-size:15px; line-height:1.4; }
+.customer-account .support-status { display:inline-flex; flex:0 0 auto; padding:5px 8px; color:#56645a; background:#f0f3ef; border-radius:999px; font-size:10px; font-weight:800; }
+.customer-account .support-status-open, .customer-account .support-status-in_progress { color:#79540b; background:#fff4d6; }
+.customer-account .support-status-resolved, .customer-account .support-status-closed { color:#236341; background:#e5f5e8; }
+.customer-account .support-ticket-meta { display:flex; flex-wrap:wrap; gap:8px 13px; margin:10px 0 13px; color:#718075; font-size:11px; }
+.customer-account .support-ticket-meta span { display:inline-flex; align-items:center; gap:4px; }
+.customer-account .support-conversation { display:grid; gap:9px; max-height:420px; overflow:auto; padding:2px 1px; }
+.customer-account .support-message { min-width:0; padding:11px 12px; border:1px solid #e5ebe4; border-radius:10px; }
+.customer-account .support-message-agent { background:#f4f8f2; border-color:#e0ebdd; }
+.customer-account .support-message-customer { background:#fbfcfb; }
+.customer-account .support-message-author { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.customer-account .support-message-author strong { margin:0; color:#28543a; font-size:12px; }
+.customer-account .support-message-author small { color:#7c897f; font-size:10px; text-align:right; }
+.customer-account .support-message p { margin:7px 0 0; color:#36463a; font-size:13px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.customer-account .support-panel .support-reply-form { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; gap:8px; margin-top:12px; padding-top:12px; border-top:1px solid #edf0eb; }
+.customer-account .support-panel .support-reply-form textarea { min-height:68px; }
+.customer-account .support-panel .support-reply-form button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:42px; padding:9px 12px; color:#fff; background:#245b3e; border:1px solid #245b3e; border-radius:9px; font:inherit; font-size:12px; font-weight:700; cursor:pointer; }
+.customer-account .support-empty { display:grid; justify-items:center; gap:7px; padding:34px 16px; color:#718075; text-align:center; }
+.customer-account .support-empty svg { color:#8ba28d; }
+.customer-account .support-empty strong { color:#34493a; }
+.customer-account .support-empty p { margin:0; font-size:13px; }
+.customer-account .support-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media (max-width:1050px) { .customer-account .support-content-grid { grid-template-columns:minmax(0,1fr); } }
+@media (max-width:640px) {
+ .customer-account .support-heading { align-items:flex-start; flex-wrap:wrap; gap:11px; }
+ .customer-account .support-heading-icon { width:44px; height:44px; border-radius:12px; }
+ .customer-account .support-refresh { margin-left:auto; }
+ .customer-account .support-compose-card, .customer-account .support-ticket-list { padding:14px; }
+ .customer-account .support-ticket-card { padding:12px; }
+ .customer-account .support-ticket-top { flex-direction:column; }
+ .customer-account .support-panel .support-reply-form { grid-template-columns:minmax(0,1fr); }
+ .customer-account .support-panel .support-reply-form button { width:100%; }
+}
+/* Customer notification preferences and history — append to CustomerDashboard.css */
+.customer-account .customer-notification-settings > .customer-muted { margin:0 0 12px; }
+.customer-account .customer-whatsapp-settings, .customer-account .customer-notification-history { margin-top:25px; padding-top:20px; border-top:1px solid #e0e6df; }
+.customer-account .customer-whatsapp-settings h3, .customer-account .customer-notification-history h3 { margin:0 0 8px; }
+.customer-account .customer-whatsapp-number { display:grid; gap:7px; max-width:440px; margin:16px 0; color:#34493a; font-size:13px; font-weight:650; }
+.customer-account .customer-notification-history-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.customer-account .customer-notification-history-heading > span { padding:5px 9px; color:#245b3e; background:#e8f2e9; border-radius:999px; font-size:11px; font-weight:800; }
+.customer-account .customer-notification-item { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin:8px 0; padding:13px 14px; border:1px solid #e0e6df; border-radius:10px; }
+.customer-account .customer-notification-item.unread { background:#f4f8f2; border-color:#cbdcc9; }
+.customer-account .customer-notification-item > div { min-width:0; }
+.customer-account .customer-notification-item strong { color:#244a31; font-size:13px; }
+.customer-account .customer-notification-item p { margin:5px 0; font-size:13px; overflow-wrap:anywhere; }
+.customer-account .customer-notification-item small { color:#718075; font-size:11px; }
+.customer-account .customer-notification-item button { flex:0 0 auto; padding:7px 10px; color:#245b3e; background:#fff; border:1px solid #cbdcc9; border-radius:8px; font:inherit; font-size:11px; font-weight:750; cursor:pointer; }
+@media(max-width:640px) { .customer-account .customer-notification-item { flex-direction:column; } }
+
+.language-picker{display:flex;align-items:center;gap:6px;font-size:12px}.language-picker select{border:1px solid #d5ded4;border-radius:8px;padding:7px;background:white}
