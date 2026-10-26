@@ -1,3 +1,4 @@
+import os
 
 import traceback
 
@@ -11,6 +12,21 @@ from support import router as support_router
 from engagement import router as engagement_router
 
 app = FastAPI(title="Desi Masala API")
+allowed_origins = [
+    "https://desi-masala-lovat.vercel.app",
+]
+
+# Optional: allow your local Vite frontend during development.
+if os.getenv("ENVIRONMENT") != "production":
+    allowed_origins.append("http://localhost:5173")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth_router)
 app.include_router(commerce_router)
