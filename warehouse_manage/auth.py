@@ -13,6 +13,8 @@ from typing import Literal
 from pwdlib import PasswordHash
 import psycopg
 from dotenv import load_dotenv
+import traceback
+
 
 load_dotenv()
 
@@ -81,39 +83,122 @@ class LoginRequest(BaseModel):
 def _now_naive_utc():
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
-def _send_verification_email(email: str, token: str, code: str):
-    if not all([SMTP_HOST, SMTP_USER, SMTP_PASSWORD, SMTP_FROM]):
-        raise RuntimeError("SMTP email delivery is not configured.")
 
-    link = f"{APP_BASE_URL}/auth/verify?token={quote(token)}"
+def _send_verification_email(email: str, token: str, code: str) -> None:
+    """
+    Send an account verification email using SMTP.
 
+    Gmail configuration:
+        SMTP_HOST=smtp.gmail.com
+        SMTP_PORT=465
+        SMTP_USER=your-gmail@gmail.com
+        SMTP_PASSWORD=your-google-app-password
+        SMTP_FROM=your-gmail@gmail.com
+        APP_BASE_URL=https://desi-masala-4zjv.onrender.com
+    """
+
+    # 1. Validate SMTP configuration.
+    required_settings = {
+        "SMTP_HOST": SMTP_HOST,
+        "SMTP_USER": SMTP_USER,
+        "SMTP_PASSWORD": SMTP_PASSWORD,
+        "SMTP_FROM": SMTP_FROM,
+    }
+
+    missing_settings = [
+        name
+        for name, value in required_settings.items()
+        if not value or not value.strip()
+    ]
+
+    if missing_settings:
+        raise RuntimeError(
+            "SMTP configuration is incomplete. Missing: "
+            + ", ".join(missing_settings)
+        )
+
+    if not APP_BASE_URL:
+        raise RuntimeError("APP_BASE_URL is not configured.")
+
+    # 2. Build the verification link.
+    link = (
+        f"{APP_BASE_URL.rstrip('/')}"
+        f"/auth/verify?token={quote(token, safe='')}"
+    )
+
+    # 3. Build the email.
     message = EmailMessage()
     message["Subject"] = "Verify your Desi Masala account"
     message["From"] = SMTP_FROM
     message["To"] = email
+
     message.set_content(
         "Welcome to Desi Masala!\n\n"
         f"Your email verification code is: {code}\n\n"
-        "Verify using this link:\n"
+        "To verify your email address, open this link:\n"
         f"{link}\n\n"
-        "The code and link expire in 30 minutes."
+        "The verification code and link expire in 30 minutes.\n\n"
+        "If you did not create a Desi Masala account, "
+        "you can ignore this email."
     )
 
-    if SMTP_PORT == 465:
-        with smtplib.SMTP_SSL(
-            SMTP_HOST, SMTP_PORT, timeout=20
-        ) as server:
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(message)
-    else:
-        with smtplib.SMTP(
-            SMTP_HOST, SMTP_PORT, timeout=20
-        ) as server:
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(message)
+    # 4. Connect and send the email.
+    try:
+        if SMTP_PORT == 465:
+            # Gmail SMTP over implicit SSL.
+            with smtplib.SMTP_SSL(
+                SMTP_HOST,
+                SMTP_PORT,
+                timeout=20,
+            ) as server:
+                server.login(SMTP_USER, SMTP_PASSWORD)
+                server.send_message(message)
+
+        elif SMTP_PORT == 587:
+            # Gmail SMTP using STARTTLS.
+            with smtplib.SMTP(
+                SMTP_HOST,
+                SMTP_PORT,
+                timeout=20,
+            ) as server:
+                server.ehlo()
+                server.starttls()
+                server.ehlo()
+                server.login(SMTP_USER, SMTP_PASSWORD)
+                server.send_message(message)
+
+        else:
+            raise ValueError(
+                f"Unsupported SMTP port: {SMTP_PORT}. "
+                "Use port 465 for SSL or 587 for STARTTLS."
+            )
+
+    except smtplib.SMTPAuthenticationError as exc:
+        raise RuntimeError(
+            "Gmail SMTP authentication failed. Verify SMTP_USER "
+            "and ensure SMTP_PASSWORD is a valid Google App Password."
+        ) from exc
+
+    except smtplib.SMTPRecipientsRefused as exc:
+        raise RuntimeError(
+            "The email provider refused the recipient address."
+        ) from exc
+
+    except smtplib.SMTPConnectError as exc:
+        raise RuntimeError(
+            "Could not establish a connection to the SMTP server."
+        ) from exc
+
+    except (TimeoutError, OSError) as exc:
+        raise RuntimeError(
+            "Could not connect to the SMTP server. "
+            "Check the SMTP host, port, and network connectivity."
+        ) from exc
+
+    except smtplib.SMTPException as exc:
+        raise RuntimeError(
+            f"SMTP email delivery failed: {type(exc).__name__}"
+        ) from exc
 
 def _create_access_token(user_id: int, email: str, expires_in_minutes: int) -> str:
     if not JWT_SECRET_KEY or len(JWT_SECRET_KEY) < 32:
